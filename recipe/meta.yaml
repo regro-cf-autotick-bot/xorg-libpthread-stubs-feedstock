@@ -3,6 +3,7 @@
 {% set name = "xorg-" ~ xorg_name %}
 {% set version = "0.3" %}
 {% set sha256 = "35b6d54e3cc6f3ba28061da81af64b9a92b7b757319098172488a660e3d87299" %}
+{% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
   name: {{ name|lower }}
@@ -19,11 +20,14 @@ source:
 # downstream packages.
 
 build:
-  number: 0
+  number: 1
   detect_binary_files_with_prefix: true
 
 requirements:
   build:
+    - m2-autoconf  # [win]
+    - m2-automake{{ am_version }}  # [win]
+    - m2-libtool  # [win]
     - m2w64-pkg-config  # [win]
     - m2w64-toolchain  # [win]
     - pkg-config  # [not win]
